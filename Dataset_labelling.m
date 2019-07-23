@@ -4,7 +4,7 @@ close all;
 
 N = 2;    % # of images to be labelled
 f = 16;    % # of features
-ex = imread('../GP/Images/img_Ex.jpg'); 
+ex = imread('../group_project/Images/img_Ex.jpg'); 
 
 % disp('Choose the keypoints(joints) as shown in the example image');
 % figure, imshow(ex), title('Example image')
@@ -12,7 +12,7 @@ labels = zeros(N,f,2);
 
 k = 1;
 while k <= N
-    I = imread(['../GP/Images/Hand_000000' , num2str(k) , '.jpg']);  %change name
+    I = imread(['../group_project/Images/Hand_000000' , num2str(k) , '.jpg']);  %change name
     figure, imshow(I), title(['Image #', num2str(k)]), hold on;
     for n = 1 : f
         labels(k,n,:) = ginput(1);
