@@ -2,8 +2,8 @@ clc;
 clear all;
 close all;
 
-N = 2;    % # of images to be labelled
-f = 3;    % # of features
+N = 315;    % # of images to be labelled
+f = 16;    % # of features
 ex = imread('../group_project/HowToLabel/HowToLabel.jpg'); 
 
 disp('Choose the keypoints(joints) as shown in the example image');
@@ -13,7 +13,7 @@ labels = zeros(N,f,2);   % tridimensional matrix for label coordinates
 
 k = 1;
 while k <= N
-    I = imread(['../group_project/dataset/aaa (' , num2str(k) , ').jpg']);  %change name
+    I = imread(['../group_project/dataset/img (' , num2str(k) , ').jpg']);  %change name
     [len_y, len_x, channels] = size(I);  % get the dimension of the images
 
     figure, imshow(I), title(['Image #', num2str(k)]), hold on;
