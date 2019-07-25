@@ -1,5 +1,5 @@
 # Markerless hand pose estimation via CNN on Keras
-This project aims at developing a deep learning model for markerless hand pose estimation based on a variation of ResNet with readout layers that predict the location of a body part implemented on Keras with Tensorflow as backend.
+This project aims at developing a deep learning model for markerless hand pose estimation based on a variation of ResNet with readout layers that predict the location of a body part. It is implemented on Keras using Tensorflow as backend.
 
 This project is developed by taking as a reference the works done in [DeeperCut Part Detectors](https://github.com/eldar/deepcut-cnn#deepercut-part-detectors) by customizing the network for hand pose estimation.
 
