@@ -6,7 +6,7 @@ This project is developed by taking as a reference the works done in [DeepLabCut
 
 ## Labeling example
 <p align="center"> 
-<img src="https://github.com/AlbertoGhiotto/group_project/blob/master/HowToLabel/HowToLabel.jpg">
+<img src="https://github.com/AlbertoGhiotto/group_project/blob/master/Dataset/HowToLabel/HowToLabel.jpg">
 </p>
 
 Installation and running instructions will follow ASAP along with a detailed report.
