@@ -1,15 +1,3 @@
-import numpy as np
-
-def read_csv_labels():
-  file = 'Dataset/dataset.csv'
-  labels = np.loadtxt(file, delimiter=',')
-  X_labels = labels[:, 0:15]
-  Y_labels = labels[:, 16:31]
-  return X_labels, Y_labels
-
-####### DA MOIFICARE PER CREARE IL NOSTRO DATA_GENERATOR CHE LEGGE I VALORI DAL CSV PER OGNI IMMAGINE E DENTRO QUESTA FUNZIONE NE CREA LA MASCHERA, BISOGNA AGGIUNGERCI IL FATTO CHE LA SIZE DELL'IMAGINE LA RICEVA IN INPUT 
-####### E BISOGNA STARE ATTENTI ALLA DIMENSIONE DELLA MASK IN OUTPUT    reference(https://towardsdatascience.com/a-keras-pipeline-for-image-segmentation-part-1-6515a421157d)
-
 import cv2
 
 STRIDE = 8
@@ -18,10 +6,10 @@ NUM_JOINTS = 16
 
 def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato
   mask = np.zeros((512/STRIDE, 512/STRIDE, NUM_JOINTS)).astype('float')
-  for joint in NUM_JOINTS
+  for joint in range(NUM_JOINTS):
     for i in range(-epsilon/STRIDE, epsilon/STRIDE):
       for j in range(-epsilon/STRIDE, epsilon/STRIDE):
-        mask[x[joint] + i, y[joint] + j] = 1
+        mask[x[joint]/STRIDE + i, y[joint]/STRIDE + j] = 1
   return mask
 
 def data_gen(img_folder, batch_size):
@@ -41,8 +29,12 @@ def data_gen(img_folder, batch_size):
       
       img[i-c] = train_img #add to array - img[0], img[1], and so on.        ############# NON SO PERCHÈ CI ABBIANO MESSO IL SEGNO - INVECE DI +
                                                    
-      
-      id_img =  #bisogna estrarre il numero dal nome del file
+      # extract the number of the image from the string name
+      img_num = n[i][4] + n[i][5] + n[i][6]   #takes the last three elements of the string i.e the number
+      id_img = [int(s) for s in img_num.split() if s.isdigit()]
+      id_img = id_img[0]    # convert single-element list of int in a single int
+     
+  
       x = X_labels[id_img,:]
       y = Y_labels[id_img,:]
       train_mask = create_mask(x,y,EPSILON)
