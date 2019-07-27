@@ -7,6 +7,8 @@ from keras.activations import sigmoid
 import numpy as np
 from resnet50_model import ResNet50
 
+NUM_JOINTS = 16
+
 
 def whole_model(input_tensor):
     
@@ -16,19 +18,19 @@ def whole_model(input_tensor):
     #resnet_model.summary() 
     
     #============================= Part classification ================================
-    x = Conv2DTranspose(14, (3,3), strides=(2,2), activation = None)(resnet_model.output)  #14 is the number of joints to be detected
-    y = Conv2D(14, (1,1), strides=(1, 1))(resnet_model.get_layer("res4a_branch2a").input)
+    x = Conv2DTranspose(NUM_JOINTS, (3,3), strides=(2,2), activation = None)(resnet_model.output)  
+    y = Conv2D(NUM_JOINTS, (1,1), strides=(1, 1))(resnet_model.get_layer("res4a_branch2a").input)
     #x = UpSampling2D(size=(2, 2))(x)
     x = Cropping2D(cropping=((1, 0), (0, 1)))(x)
     x = Add()([x, y]) 
     scmap = Activation('sigmoid',  name='scmap')(x)
     
     #============================= Location refinement ================================
-    z = Conv2DTranspose(28, (3,3), strides=(2,2), activation = None)(resnet_model.output)
-    y = Conv2D(28, (1,1), strides=(1, 1))(resnet_model.get_layer("res4a_branch2a").input)
+    #z = Conv2DTranspose(NUM_JOINTS*2, (3,3), strides=(2,2), activation = None)(resnet_model.output)
+    #y = Conv2D(NUM_JOINTS*2, (1,1), strides=(1, 1))(resnet_model.get_layer("res4a_branch2a").input)
     #z = UpSampling2D(size=(2, 2))(z)
-    z = Cropping2D(cropping=((1, 0), (0, 1)))(z)
-    locref = Add( name='locref')([z, y]) 
+    #z = Cropping2D(cropping=((1, 0), (0, 1)))(z)
+    #locref = Add( name='locref')([z, y]) 
     
     #============================= Regression to other joints ==========================
     #w = Conv2DTranspose(364, (3,3), strides=(2,2), activation = None)(resnet_model.output)        
@@ -39,6 +41,7 @@ def whole_model(input_tensor):
     
     #============================ Building the model ===================================
     
-    model = Model(inputs=resnet_model.input, outputs= [scmap, locref])
+    #model = Model(inputs=resnet_model.input, outputs= [scmap, locref]) # In case of using also location refinement
+    model = Model(inputs=resnet_model.input, outputs=scmap)
     
     return model
