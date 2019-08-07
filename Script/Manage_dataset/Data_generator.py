@@ -30,10 +30,22 @@ def data_gen(img_folder, batch_size):
       img[i-c] = train_img #add to array - img[0], img[1], and so on.        ############# NON SO PERCHÈ CI ABBIANO MESSO IL SEGNO - INVECE DI +
                                                    
       # extract the number of the image from the string name
-      img_num = n[i][4] + n[i][5] + n[i][6]   #takes the last three elements of the string i.e the number
+      if str.isdigit(n[i][6]): #takes the number in brackets
+        if str.isdigit(n[i][7]): #number with three digits
+          img_num = n[i][5] + n[i][6] + n[i][7]
+        else: #number with two digits
+          img_num = n[i][5] + n[i][6]
+      else: #number with one digit
+        img_num = n[i][5]
+        
       id_img = [int(s) for s in img_num.split() if s.isdigit()]
       id_img = id_img[0]    # convert single-element list of int in a single int
      
+      ################ OLD ONE ##################
+      #img_num = n[i][4] + n[i][5] + n[i][6]   #takes the last three elements of the string i.e the number
+      #id_img = [int(s) for s in img_num.split() if s.isdigit()]
+      #id_img = id_img[0]    # convert single-element list of int in a single int
+      ###########################################     
   
       x = X_labels[id_img,:]
       y = Y_labels[id_img,:]
