@@ -15,6 +15,8 @@ def whole_model(input_tensor):
     #================================== ResNet =======================================
     # Importing the ResNet architecture pretrained on ImageNet
     resnet_model = ResNet50(weights='imagenet', include_top=False, input_tensor=input_tensor)
+    for layer in resnet_model.layers: # In questo modo tutti i layer del modello importato non sono trainable
+        layer.trainable = False
     #resnet_model.summary() 
     
     #============================= Part classification ================================
