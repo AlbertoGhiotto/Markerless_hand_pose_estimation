@@ -1,4 +1,4 @@
-from script.model import whole_model
+from script.model.whole_model import whole_model
 from keras.layers import Input
 
 #height = 224 #dimensions of image
