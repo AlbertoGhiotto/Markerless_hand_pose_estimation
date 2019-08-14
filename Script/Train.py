@@ -11,6 +11,6 @@ input_tensor = Input(shape=(224, 224, 3))
 model = whole_model(input_tensor)
 
 model.compile(optimizer='adam', loss='categorical_crossentropy',
-              , metrics=['accuracy'])
+              metrics=['accuracy'])
 
 #model.fit( [headline_data, additional_data] , [labels, labels],epochs=50, batch_size=32)
