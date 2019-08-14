@@ -15,3 +15,5 @@ test_frame_path = 'https://raw.githubusercontent.com/AlbertoGhiotto/group_projec
 test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE)
 
 model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
+
+#DA AGGIUNGERE IL MODO DI VISUALIZZARE IL RISULTATO
