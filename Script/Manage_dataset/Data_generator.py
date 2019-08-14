@@ -1,8 +1,18 @@
 import cv2
+import numpy as np
 
 STRIDE = 8
 EPSILON = 8     ## Questo valore poi andrebbe un po' aggiustato
 NUM_JOINTS = 16
+
+
+def read_csv_labels():
+  file = 'https://raw.githubusercontent.com/AlbertoGhiotto/group_project/master/Dataset/dataset.csv'
+  labels = np.loadtxt(file, delimiter=',')
+  X_labels = labels[:, 0:15]
+  Y_labels = labels[:, 16:31]
+  return X_labels, Y_labels
+
 
 def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato
   mask = np.zeros((512/STRIDE, 512/STRIDE, NUM_JOINTS)).astype('float')
