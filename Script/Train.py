@@ -1,4 +1,5 @@
-from script.model.whole_model import whole_model
+from Script.Model.whole_model import whole_model
+from Script.Manage_dataset.Data_generator import data_gen
 from keras.layers import Input
 from keras.optimizers import Adam
 
