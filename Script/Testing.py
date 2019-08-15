@@ -5,6 +5,7 @@ from keras.layers import Input
 import numpy as np
 
 BATCH_SIZE = 4      # Scelto da me abbastanza random, ragionevole
+STRIDE = 8
 NO_OF_TESTING_IMAGES = len(os.listdir(test_frame_path))
 
 def test(model, stride):
@@ -16,6 +17,10 @@ def test(model, stride):
 
     pose = prediction.argmax_predict(predictions, stride)
 
-##### DA RICONTROLLARE
+    ##### DA RICONTROLLARE
 
-#DA AGGIUNGERE IL MODO DI VISUALIZZARE IL RISULTATO
+    #DA AGGIUNGERE IL MODO DI VISUALIZZARE IL RISULTATO
+
+if __name__ == '__main__':
+    model = load_model('Model.h5')
+    test(model, STRIDE)
