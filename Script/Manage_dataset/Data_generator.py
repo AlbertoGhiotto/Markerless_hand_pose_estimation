@@ -71,16 +71,3 @@ def data_gen(img_folder, batch_size):
       random.shuffle(n)
                   # print "randomizing again"
     yield img, mask
-
-
-
-
-train_frame_path = '/path/to/training_frames'
-#train_mask_path = '/path/to/training_masks'
-
-val_frame_path = '/path/to/validation_frames'
-#val_mask_path = '/path/to/validation_frames'
-
-# Train the model
-train_gen = data_gen(train_frame_path, batch_size = 4)
-val_gen = data_gen(val_frame_path, batch_size = 4)
