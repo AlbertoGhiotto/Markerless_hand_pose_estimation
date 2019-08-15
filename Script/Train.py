@@ -2,6 +2,7 @@ from Script.Model.whole_model import whole_model
 from Script.Manage_dataset.Data_generator import data_gen
 from keras.layers import Input
 from keras.optimizers import Adam
+from keras.model import load_model
 
 train_frame_path = 'https://raw.githubusercontent.com/AlbertoGhiotto/group_project/master/Dataset/train_frames'
 val_frame_path = 'https://raw.githubusercontent.com/AlbertoGhiotto/group_project/master/Dataset/val_frames'
@@ -37,3 +38,12 @@ def train(model):
 
   model.save('Model.h5')
   return model
+
+
+if __name__ == "__main__":
+  try:
+    model = load_model('Model.h5')
+  except IOError:
+    input_tensor = Input(shape=(None, None, 3))
+    model = whole_model(input_tensor)
+  train(model)
