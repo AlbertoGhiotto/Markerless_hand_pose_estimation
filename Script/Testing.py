@@ -1,6 +1,6 @@
 from Script.Model.whole_model import whole_model
 from Script.Manage_dataset.Data_generator import data_gen
-from Script import Predict
+from Script import prediction
 from keras.layers import Input
 import numpy as np
 
@@ -14,7 +14,7 @@ def test(model, stride):
 
     predictions = model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
 
-    pose = Predict.argmax_predict(predictions, stride)
+    pose = prediction.argmax_predict(predictions, stride)
 
 ##### DA RICONTROLLARE
 
