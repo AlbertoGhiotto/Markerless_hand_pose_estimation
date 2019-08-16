@@ -9,8 +9,8 @@ NUM_JOINTS = 16
 def read_csv_labels():
   file = '../../Dataset/dataset.csv'
   labels = np.loadtxt(file, delimiter=',')
-  X_labels = labels[:, 0:15]
-  Y_labels = labels[:, 16:31]
+  X_labels = labels[:, 0:16]
+  Y_labels = labels[:, 16:32]
   return X_labels, Y_labels
 
 
