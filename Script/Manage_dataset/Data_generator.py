@@ -7,7 +7,7 @@ NUM_JOINTS = 16
 
 
 def read_csv_labels():
-  file = '../../master/Dataset/dataset.csv'
+  file = '../../Dataset/dataset.csv'
   labels = np.loadtxt(file, delimiter=',')
   X_labels = labels[:, 0:15]
   Y_labels = labels[:, 16:31]
