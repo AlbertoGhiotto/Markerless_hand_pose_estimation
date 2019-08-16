@@ -28,7 +28,7 @@ def data_gen(img_folder, batch_size):
   random.shuffle(n)
   X_labels, Y_labels = read_csv_labels()
   
-  while (True):         ######## QUESTO WHILE TRUE FORSE ANDREBBE CAMBIATO
+  while (True):         
     img = np.zeros((batch_size, 512, 512, 3)).astype('float')
     mask = np.zeros((batch_size, 512//STRIDE, 512//STRIDE, NUM_JOINTS)).astype('float')
 
@@ -37,7 +37,7 @@ def data_gen(img_folder, batch_size):
       train_img = cv2.imread(img_folder+'/'+n[i])/255.
       train_img =  cv2.resize(train_img, (512, 512))# Read an image from folder and resize
       
-      img[i-c] = train_img #add to array - img[0], img[1], and so on.        ############# NON SO PERCHÈ CI ABBIANO MESSO IL SEGNO - INVECE DI +
+      img[i-c] = train_img #add to array - img[0], img[1], and so on.       
                                                    
       # extract the number of the image from the string name
       if str.isdigit(n[i][6]): #takes the number in brackets
