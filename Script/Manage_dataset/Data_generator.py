@@ -19,7 +19,7 @@ def create_mask(x,y,epsilon):                   ############# Questo poi forse s
   for joint in range(NUM_JOINTS):
     for i in range(-epsilon//STRIDE, epsilon//STRIDE):
       for j in range(-epsilon//STRIDE, epsilon//STRIDE):
-        mask[x[joint]//STRIDE + i, y[joint]//STRIDE + j] = 1
+        mask[ (x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = 1
   return mask
 
 def data_gen(img_folder, batch_size):
