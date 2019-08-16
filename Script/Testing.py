@@ -10,7 +10,7 @@ NO_OF_TESTING_IMAGES = len(os.listdir(test_frame_path))
 
 def test(model, stride):
 
-    test_frame_path = 'https://raw.githubusercontent.com/AlbertoGhiotto/group_project/master/Dataset/test_frames'
+    test_frame_path = '../../group_project/Dataset/test_frames'
     test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE)
 
     predictions = model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
