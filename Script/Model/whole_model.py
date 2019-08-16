@@ -10,14 +10,19 @@ from resnet50_model import ResNet50
 NUM_JOINTS = 16
 
 
-def whole_model(input_tensor):
+def whole_model(input_tensor=None):
     
     #================================== ResNet =======================================
     # Importing the ResNet architecture pretrained on ImageNet
     resnet_model = ResNet50(weights='imagenet', include_top=False, input_tensor=input_tensor)
-    for layer in resnet_model.layers: # In questo modo tutti i layer del modello importato non sono trainable
+    
+    # Set the resnet layers (except the last ones) to non trainable
+    for layer in resnet_model.layers:         
         layer.trainable = False
-    #resnet_model.summary() 
+
+    resnet_model.get_layer("res5c_branch2a").trainable = True 
+    resnet_model.get_layer("res5c_branch2b").trainable = True  
+    resnet_model.get_layer("res5c_branch2c").trainable = True
     
     #============================= Part classification ================================
     x = Conv2DTranspose(NUM_JOINTS, (3,3), strides=(2,2), activation = None)(resnet_model.output)  
