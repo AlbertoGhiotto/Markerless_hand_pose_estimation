@@ -47,3 +47,6 @@ def dataset_split():
     name = [folder[1]] * len(array)
 
     list(map(add_frames, name, array))
+
+if __name__ == '__main__':
+  dataset_split()
