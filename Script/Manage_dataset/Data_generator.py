@@ -14,12 +14,12 @@ def read_csv_labels():
   return X_labels, Y_labels
 
 
-def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato
-  mask = np.zeros((512/STRIDE, 512/STRIDE, NUM_JOINTS)).astype('float')
+def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato e forse gaussiana
+  mask = np.zeros((512//STRIDE, 512//STRIDE, NUM_JOINTS)).astype('float')
   for joint in range(NUM_JOINTS):
-    for i in range(-epsilon/STRIDE, epsilon/STRIDE):
-      for j in range(-epsilon/STRIDE, epsilon/STRIDE):
-        mask[x[joint]/STRIDE + i, y[joint]/STRIDE + j] = 1
+    for i in range(-epsilon//STRIDE, epsilon//STRIDE):
+      for j in range(-epsilon//STRIDE, epsilon//STRIDE):
+        mask[x[joint]//STRIDE + i, y[joint]//STRIDE + j] = 1
   return mask
 
 def data_gen(img_folder, batch_size):
@@ -30,7 +30,7 @@ def data_gen(img_folder, batch_size):
   
   while (True):         ######## QUESTO WHILE TRUE FORSE ANDREBBE CAMBIATO
     img = np.zeros((batch_size, 512, 512, 3)).astype('float')
-    mask = np.zeros((batch_size, 512/STRIDE, 512/STRIDE, NUM_JOINTS)).astype('float')
+    mask = np.zeros((batch_size, 512//STRIDE, 512//STRIDE, NUM_JOINTS)).astype('float')
 
     for i in range(c, c+batch_size): #initially from 0 to 16, c = 0. 
 
@@ -60,7 +60,7 @@ def data_gen(img_folder, batch_size):
       x = X_labels[id_img,:]
       y = Y_labels[id_img,:]
       train_mask = create_mask(x,y,EPSILON)
-      train_mask = cv2.resize(train_mask, (512/STRIDE, 512/STRIDE, NUM_JOINTS))
+      train_mask = cv2.resize(train_mask, (512//STRIDE, 512//STRIDE, NUM_JOINTS))
       #train_mask = train_mask.reshape(512, 512, 1) # Add extra dimension for parity with train_img size [512 * 512 * 3]
 
       mask[i-c] = train_mask
