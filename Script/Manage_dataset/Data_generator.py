@@ -50,17 +50,11 @@ def data_gen(img_folder, batch_size):
         
       id_img = [int(s) for s in img_num.split() if s.isdigit()]
       id_img = id_img[0]    # convert single-element list of int in a single int
-     
-      ################ OLD ONE ##################
-      #img_num = n[i][4] + n[i][5] + n[i][6]   #takes the last three elements of the string i.e the number
-      #id_img = [int(s) for s in img_num.split() if s.isdigit()]
-      #id_img = id_img[0]    # convert single-element list of int in a single int
-      ###########################################     
+    
   
       x = X_labels[id_img,:].astype('int')    #####Controllare che vada bene l'astype
       y = Y_labels[id_img,:].astype('int')
       train_mask = create_mask(x,y,EPSILON)
-      train_mask = cv2.resize(train_mask, (512//STRIDE, 512//STRIDE, NUM_JOINTS))
       #train_mask = train_mask.reshape(512, 512, 1) # Add extra dimension for parity with train_img size [512 * 512 * 3]
 
       mask[i-c] = train_mask
