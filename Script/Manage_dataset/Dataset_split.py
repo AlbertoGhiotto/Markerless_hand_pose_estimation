@@ -3,7 +3,7 @@ import random
 import re
 from PIL import Image
 
-DATA_PATH = '../../master/Dataset'
+DATA_PATH = '../../Dataset'
 FRAME_PATH = DATA_PATH+'/Imgs'
 
 # Function to split the dataset in training validation and test set
