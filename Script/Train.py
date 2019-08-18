@@ -10,21 +10,11 @@ val_frame_path = '../../Dataset/val_frames'
 
 NO_OF_TRAINING_IMAGES = len(os.listdir(train_frame_path))
 NO_OF_VAL_IMAGES = len(os.listdir(val_frame_path))
-NO_OF_EPOCHS = 50   # Scelto da me abbastanza random, se non sbaglio nell'articolo parlava di valori molto più elevati
+NO_OF_EPOCHS = 200000     # Scelto da me abbastanza random, ragionevole
 BATCH_SIZE = 4      # Scelto da me abbastanza random, ragionevole
 
 
 def train(model):
-
-  #height = 224 #dimensions of image
-  #width = 224
-  #channel = 3
-
-  #input_tensor = Input(shape=(224, 224, 3))
-  #input_tensor = Input(shape=(None, None, 3))
-
-  #model = whole_model(input_tensor)
-
 
   # Train the model
   train_gen = data_gen(train_frame_path, batch_size = BATCH_SIZE)
@@ -45,6 +35,5 @@ if __name__ == "__main__":
   try:
     model = load_model('Model.h5')
   except IOError:
-    input_tensor = Input(shape=(None, None, 3))
-    model = whole_model(input_tensor)
+    model = whole_model()
   train(model)
