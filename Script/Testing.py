@@ -3,6 +3,7 @@ from Script.Manage_dataset.Data_generator import data_gen
 from Script import prediction
 from keras.layers import Input
 import numpy as np
+IMPORT CV2
 
 BATCH_SIZE = 4      # Scelto da me abbastanza random, ragionevole
 STRIDE = 8
