@@ -15,8 +15,11 @@ def test(model, stride):
     test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE)
 
     predictions = model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
-
-    pose = prediction.argmax_predict(predictions, stride)
+    
+    num_imgs = predictions.shape[1]
+    pose_imgs = []
+    for img in range(num_imgs)
+        pose = prediction.argmax_predict(predictions, stride)
 
     ##### DA RICONTROLLARE
 
