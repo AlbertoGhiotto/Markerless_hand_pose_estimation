@@ -20,6 +20,7 @@ def test(model, stride):
     pose_imgs = []
     for img in range(num_imgs)
         pose = prediction.argmax_predict(predictions, stride)
+        pose_imgs.append(pose)
 
     ##### DA RICONTROLLARE
 
