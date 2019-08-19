@@ -23,7 +23,8 @@ def create_mask(x,y,epsilon):                   ############# Questo poi forse s
     for i in range(-epsilon//STRIDE, epsilon//STRIDE):
       for j in range(-epsilon//STRIDE, epsilon//STRIDE):
         if (x[joint]//STRIDE + i)<(ACTUAL_HEIGHT//STRIDE) and (y[joint]//STRIDE + j)<(ACTUAL_WIDTH//STRIDE): 
-          mask[(x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = 1
+          if x[joint] != -1 and y[joint] != -1:
+            mask[(x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = 1
   return mask
 
 def data_gen(img_folder, batch_size):
