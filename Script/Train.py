@@ -10,8 +10,8 @@ val_frame_path = '../Dataset/val_frames'
 
 NO_OF_TRAINING_IMAGES = len(os.listdir(train_frame_path))
 NO_OF_VAL_IMAGES = len(os.listdir(val_frame_path))
-NO_OF_EPOCHS = 200000     # Scelto da me abbastanza random, ragionevole
-BATCH_SIZE = 4      # Scelto da me abbastanza random, ragionevole
+NO_OF_EPOCHS = 200000     
+BATCH_SIZE = 4      
 
 
 def train(model):
@@ -27,7 +27,7 @@ def train(model):
                             validation_data=val_gen, 
                             validation_steps=(NO_OF_VAL_IMAGES//BATCH_SIZE) )
 
-  model.save('Model.h5')
+  model.save('Model/Model.h5')
   return model
 
 
