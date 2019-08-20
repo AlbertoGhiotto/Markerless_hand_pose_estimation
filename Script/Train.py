@@ -33,7 +33,7 @@ def train(model):
 
 if __name__ == "__main__":
   try:
-    model = load_model('Model.h5')
+    model = load_model('Model/Model.h5')
   except IOError:
     model = whole_model()
   train(model)
