@@ -5,8 +5,8 @@ from keras.optimizers import Adam
 from keras.model import load_model
 import os
 
-train_frame_path = '../../Dataset/train_frames'
-val_frame_path = '../../Dataset/val_frames'
+train_frame_path = '../Dataset/train_frames'
+val_frame_path = '../Dataset/val_frames'
 
 NO_OF_TRAINING_IMAGES = len(os.listdir(train_frame_path))
 NO_OF_VAL_IMAGES = len(os.listdir(val_frame_path))
