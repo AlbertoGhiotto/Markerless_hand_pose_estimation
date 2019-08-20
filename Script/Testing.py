@@ -1,6 +1,7 @@
 from Script.Model.whole_model import whole_model
 from Script.Manage_dataset.Data_generator import data_gen
 from Script import prediction
+from Script.prediction import visualize
 from keras.layers import Input
 import numpy as np
 IMPORT CV2
@@ -10,15 +11,8 @@ STRIDE = 8
 NO_OF_TESTING_IMAGES = len(os.listdir(test_frame_path))
 
 
-def visualize(image, pose):
-  for joint in range(pose.shape[0])
-    cx = pose[joint][0]
-    cy = pose[joint][1]
-  
-    cv2.imshow('pose', image)
-    cv2.circle(image,(int(cx),int(cy)),10,(255,255,255),-11)
 
-def test(model, stride):
+def test(model, stride, show_result = True):
 
     test_frame_path = '../../Dataset/test_frames'
     test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE)
@@ -30,8 +24,7 @@ def test(model, stride):
     for img in range(num_imgs)
         pose = prediction.argmax_predict(predictions, stride)
         pose_imgs.append(pose)
-
-    ##### DA RICONTROLLARE
+        
 
      # Plot the pose on the original image
     if show_result:
