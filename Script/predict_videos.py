@@ -2,6 +2,7 @@ import cv2
 from keras.preprocessing import image as img
 from keras.models import load_model
 from Script.prediction import visualize
+from Script import prediction
 import numpy as np
 
 STRIDE = 8
@@ -23,18 +24,11 @@ def video_prediction(video, model, stride, show_result = True):
 
     # predicting images
     image = img.img_to_array(image)
-    image = np.expand_dims(image, axis=3)
+    image = np.expand_dims(image, axis=0)
     
     predictions = model.predict(image, batch_size=1, verbose=1, )
-    
-    num_joints = predictions.shape[3]
 
-    pose = []
-    for joint_idx in range(num_joints):
-      maxloc = np.unravel_index(np.argmax(predictions[:, :, joint_idx]), predictions[:, :, joint_idx].shape)
-      pos_f8 = (np.array(maxloc).astype('float') * stride + 0.5 * stride)
-      pose.append(np.hstack((pos_f8[::-1], [predictions[maxloc][joint_idx]])))
-    pose = np.array(pose)
+    pose = prediction.argmax_predict(predictions, stride)
 
     # Plot the pose on the original image
     if show_result: 
@@ -43,5 +37,5 @@ def video_prediction(video, model, stride, show_result = True):
 
 if __name__ == "__main__":
     video_path = 'group_project/test.mp4'
-    model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5')
+    model = load_model('Model/Model.h5')
     video_prediction(video_path, model, STRIDE)
