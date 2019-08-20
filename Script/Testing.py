@@ -36,5 +36,5 @@ def test(model, stride, show_result = True):
             visualize(image, pose)
 
 if __name__ == '__main__':
-    model = load_model('Model.h5')
+    model = load_model('Model/Model.h5')
     test(model, STRIDE)
