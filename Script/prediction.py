@@ -13,9 +13,10 @@ def argmax_predict(predictions, stride):
 
 
 def visualize(image, pose):
-  for joint in range(pose.shape[0]):
-      cx = pose[joint][0]
-      cy = pose[joint][1]  
+    
+    cv2.imshow('pose', image)  
+    for joint in range(pose.shape[0]):
+        cx = pose[joint][0]
+        cy = pose[joint][1]  
   
-  cv2.imshow('pose', image)
-  cv2.circle(image,(int(cx),int(cy)),10,(255,255,255),-11)
+        cv2.circle(image,(int(cx),int(cy)),10,(255,255,255),-11)
