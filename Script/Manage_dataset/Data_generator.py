@@ -27,7 +27,7 @@ def create_mask(x,y,epsilon):                   ############# Questo poi forse s
             mask[(x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = 1
   return mask
 
-def data_gen(img_folder, batch_size):
+def data_gen(img_folder, batch_size, shuffle=True):
   c = 0
   n = os.listdir(img_folder) #List of training images
   random.shuffle(n)
