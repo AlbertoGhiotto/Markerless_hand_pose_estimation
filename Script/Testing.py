@@ -6,34 +6,35 @@ from keras.layers import Input
 import numpy as np
 IMPORT CV2
 
-BATCH_SIZE = 4      # Scelto da me abbastanza random, ragionevole
+BATCH_SIZE = 4     
 STRIDE = 8
 NO_OF_TESTING_IMAGES = len(os.listdir(test_frame_path))
+DEFAULT_WIDTH = 512
+DEFAULT_HEIGHT = 512
 
 
 
 def test(model, stride, show_result = True):
 
     test_frame_path = '../Dataset/test_frames'
-    test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE)
+    test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE, shuffle=False)
 
     predictions = model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
     
-    num_imgs = predictions.shape[1]
+    n = os.listdir(test_frame_path)
+    num_imgs = len(n)
+    num_joints = predictions.shape[3]
     pose_imgs = []
-    for img in range(num_imgs)
-        pose = prediction.argmax_predict(predictions, stride)
-        pose_imgs.append(pose)
-        
 
-     # Plot the pose on the original image
-    if show_result:
-        n = os.listdir(test_frame_path)
-        for i in range(num_imgs):
-            image = cv2.imread(test_frame_path+'/'+n[i])/255.
-            image =  cv2.resize(train_img, (DEFAULT_HEIGHT, DEFAULT_WIDTH)) 
-            pose = pose_imgs[i*NUM_JOINTS:(i+1)*NUM_JOINTS-1, :] 
+    for img in range(num_imgs):
+        pose = prediction.argmax_predict(predictions, stride)
+        if show_result:
+            image = cv2.imread(test_frame_path+'/'+n[img])    
+            image =  cv2.resize(image, (DEFAULT_HEIGHT, DEFAULT_WIDTH))
             visualize(image, pose)
+        pose_imgs.append(pose)
+    
+   
 
 if __name__ == '__main__':
     model = load_model('Model/Model.h5')
