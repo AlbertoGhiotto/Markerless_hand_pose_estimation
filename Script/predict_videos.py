@@ -23,10 +23,10 @@ def video_prediction(video, model, stride, show_result = True):
       break
 
     # predicting images
-    image = img.img_to_array(image)
-    image = np.expand_dims(image, axis=0)
+    image_array = img.img_to_array(image)
+    image_array = np.expand_dims(image, axis=0)
     
-    predictions = model.predict(image, batch_size=1, verbose=1, )
+    predictions = model.predict(image_array, batch_size=1, verbose=1, )
 
     pose = prediction.argmax_predict(predictions, stride)
 
