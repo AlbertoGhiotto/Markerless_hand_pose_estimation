@@ -12,7 +12,7 @@ def video_prediction(video, model, stride, show_result = True):
   # dimensions of our images
   #img_width, img_height = 512, 512
 
-  vidcap = cv2.VideoCapture('group_project/test.mp4')
+  vidcap = cv2.VideoCapture(video)
   
   while True:      
     grabbed,image = vidcap.read()
