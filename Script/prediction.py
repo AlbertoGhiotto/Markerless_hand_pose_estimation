@@ -13,10 +13,19 @@ def argmax_predict(predictions, stride):
 
 
 def visualize(image, pose):
-    
-    cv2.imshow('pose', image)  
-    for joint in range(pose.shape[0]):
-        cx = pose[joint][0]
-        cy = pose[joint][1]  
-  
-        cv2.circle(image,(int(cx),int(cy)),10,(255,255,255),-11)
+   
+  for joint in range(pose.shape[0]):
+      cx = pose[joint][0]
+      cy = pose[joint][1]  
+      
+      #print("CX \n")  
+      #print(cx)
+      #print("CY \n")  
+      #print(cy)
+      #print("POSE \n")  
+      #print(pose)
+      
+      cv2.circle(image,(int(cx),int(cy)),5,(255,255,255),-1) #Draw a cirle onto the image
+      cv2.putText(image, str(joint), (int(cx),int(cy)),cv2.FONT_ITALIC ,1, (255,0,0), 3,cv2.LINE_AA) #Puts joints number inside the cirle
+      
+  cv2_imshow(image)
