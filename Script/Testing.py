@@ -36,7 +36,7 @@ def test(model, stride, show_result = True):
         pose_imgs.append(pose)
     
    
-
-model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
-print("Model loaded from drive")
-test(model, STRIDE)  
+if __name__ == "__main__":
+    model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
+    print("Model loaded from drive")
+    test(model, STRIDE)  
