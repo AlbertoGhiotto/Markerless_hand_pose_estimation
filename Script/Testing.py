@@ -2,9 +2,10 @@ from Script.Model.whole_model import whole_model
 from Script.Manage_dataset.Data_generator import data_gen
 from Script import prediction
 from Script.prediction import visualize
+from Script import loss
 from keras.layers import Input
 import numpy as np
-IMPORT CV2
+import cv2
 
 BATCH_SIZE = 4     
 STRIDE = 8
@@ -36,6 +37,6 @@ def test(model, stride, show_result = True):
     
    
 
-if __name__ == '__main__':
-    model = load_model('Model/Model.h5')
-    test(model, STRIDE)
+model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
+print("Model loaded from drive")
+test(model, STRIDE)  
