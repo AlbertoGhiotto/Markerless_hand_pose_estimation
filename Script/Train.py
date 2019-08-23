@@ -1,6 +1,6 @@
 from Script.Model.whole_model import whole_model
 from Script.Manage_dataset.Data_generator import data_gen
-from Script.Loss import loss
+from Script.Loss import weighted_cross_entropy
 from keras.layers import Input
 from keras.optimizers import Adam
 from keras.model import load_model
