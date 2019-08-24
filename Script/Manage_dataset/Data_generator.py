@@ -16,6 +16,19 @@ def read_csv_labels():
   Y_labels = labels[:, 16:32]
   return X_labels, Y_labels
 
+def get_ID(image_name):
+  if str.isdigit(image_name[6]): #takes the number in brackets
+    if str.isdigit(image_name[7]): #number with three digits
+      img_num = image_name[5] + image_name[6] + image_name[7]
+    else: #number with two digits
+      img_num = image_name[5] + image_name[6]
+  else: #number with one digit
+    img_num = image_name[5]
+        
+  id_img = [int(s) for s in img_num.split() if s.isdigit()]
+  id_img = id_img[0]    # convert single-element list of int in a single int 
+  return id_img
+
 
 def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato e magari mettere la gaussiana
   mask = np.zeros((ACTUAL_HEIGHT//STRIDE, ACTUAL_WIDTH//STRIDE, NUM_JOINTS)).astype('float')    
@@ -44,17 +57,8 @@ def data_gen(img_folder, batch_size, shuffle=True):
       
       img[i-c] = train_img #add to array - img[0], img[1], and so on.       
                                                    
-      # extract the number of the image from the string name
-      if str.isdigit(n[i][6]): #takes the number in brackets
-        if str.isdigit(n[i][7]): #number with three digits
-          img_num = n[i][5] + n[i][6] + n[i][7]
-        else: #number with two digits
-          img_num = n[i][5] + n[i][6]
-      else: #number with one digit
-        img_num = n[i][5]
-        
-      id_img = [int(s) for s in img_num.split() if s.isdigit()]
-      id_img = id_img[0]    # convert single-element list of int in a single int
+      # extract the number of the image from the string name      
+      id_img = get_ID(n[i])
     
   
       x = X_labels[id_img,:].astype('int')    #####Controllare che vada bene l'astype
