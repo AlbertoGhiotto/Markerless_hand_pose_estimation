@@ -3,7 +3,7 @@ import cv2
 
 def argmax_predict(predictions, stride):
     
-    num_joints = predictions.shape[3]
+    num_joints = predictions.shape[2]
     pose = []
     for joint_idx in range(num_joints):
         maxloc = np.unravel_index(np.argmax(predictions[:, :, joint_idx]), predictions[:, :, joint_idx].shape)
@@ -17,13 +17,6 @@ def visualize(image, pose):
   for joint in range(pose.shape[0]):
       cx = pose[joint][0]
       cy = pose[joint][1]  
-      
-      #print("CX \n")  
-      #print(cx)
-      #print("CY \n")  
-      #print(cy)
-      #print("POSE \n")  
-      #print(pose)
       
       cv2.circle(image,(int(cx),int(cy)),5,(255,255,255),-1) #Draw a cirle onto the image
       cv2.putText(image, str(joint), (int(cx),int(cy)),cv2.FONT_ITALIC ,1, (255,0,0), 3,cv2.LINE_AA) #Puts joints number inside the cirle
