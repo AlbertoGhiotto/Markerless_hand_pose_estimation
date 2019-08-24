@@ -25,7 +25,6 @@ def test(model, stride, show_result = True):
     n = os.listdir(test_frame_path)
     num_imgs = len(n)
     num_joints = predictions.shape[3]
-    pose_imgs = []
 
     for img in range(num_imgs):
         pose = prediction.argmax_predict(predictions[img], stride)
@@ -33,7 +32,6 @@ def test(model, stride, show_result = True):
             image = cv2.imread(test_frame_path+'/'+n[img])    
             image =  cv2.resize(image, (DEFAULT_HEIGHT, DEFAULT_WIDTH))
             visualize(image, pose)
-        pose_imgs.append(pose)
     
    
 if __name__ == "__main__":
