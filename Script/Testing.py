@@ -13,11 +13,11 @@ NO_OF_TESTING_IMAGES = len(os.listdir(test_frame_path))
 DEFAULT_WIDTH = 512
 DEFAULT_HEIGHT = 512
 
+test_frame_path = '../Dataset/test_frames'
 
 
 def test(model, stride, show_result = True):
 
-    test_frame_path = '../Dataset/test_frames'
     test_gen = data_gen(test_frame_path, batch_size = BATCH_SIZE, shuffle=False)
 
     predictions = model.predict_generator( test_gen, steps=(NO_OF_TESTING_IMAGES//BATCH_SIZE) )
@@ -28,7 +28,7 @@ def test(model, stride, show_result = True):
     pose_imgs = []
 
     for img in range(num_imgs):
-        pose = prediction.argmax_predict(predictions, stride)
+        pose = prediction.argmax_predict(predictions[img], stride)
         if show_result:
             image = cv2.imread(test_frame_path+'/'+n[img])    
             image =  cv2.resize(image, (DEFAULT_HEIGHT, DEFAULT_WIDTH))
@@ -37,6 +37,6 @@ def test(model, stride, show_result = True):
     
    
 if __name__ == "__main__":
-    model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
+    model = load_model('Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
     print("Model loaded from drive")
     test(model, STRIDE)  
