@@ -29,15 +29,12 @@ def train(model):
                             validation_steps=(NO_OF_VAL_IMAGES//BATCH_SIZE) )
 
   model.save("drive/My Drive/Colab Notebooks/Model/Model.h5")
-  print("Saved model to drive")
+  
   
 if __name__ == "__main__":  
   try:
     model = load_model("drive/My Drive/Colab Notebooks/Model/Model.h5", custom_objects={'loss': weighted_cross_entropy(0.8)})
     print("Model loaded from Drive")
   except IOError:
-    try:
-      model.load_weights('./Checkpoints/my_checkpoint')
-    except IOError:
-      model = whole_model()
+    model = whole_model()
   train(model)
