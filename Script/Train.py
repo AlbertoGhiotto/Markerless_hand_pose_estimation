@@ -28,12 +28,12 @@ def train(model):
                             validation_data=val_gen, 
                             validation_steps=(NO_OF_VAL_IMAGES//BATCH_SIZE) )
 
-  model.save("drive/My Drive/Colab Notebooks/Model/Model.h5")
+  model.save("Model/Model.h5")
   
   
 if __name__ == "__main__":  
   try:
-    model = load_model("drive/My Drive/Colab Notebooks/Model/Model.h5", custom_objects={'loss': weighted_cross_entropy(0.8)})
+    model = load_model("Model/Model.h5", custom_objects={'loss': weighted_cross_entropy(0.8)})
     print("Model loaded from Drive")
   except IOError:
     model = whole_model()
