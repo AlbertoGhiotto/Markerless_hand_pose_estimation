@@ -38,5 +38,5 @@ def video_prediction(video, model, stride, show_result = True):
 
 if __name__ == "__main__":
     video_path = 'group_project/test.mp4'
-    model = load_model('/content/drive/My Drive/Colab Notebooks/Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
+    model = load_model('Model/Model.h5', custom_objects={'loss': weighted_cross_entropy(0.8)})
     video_prediction(video_path, model, STRIDE)
