@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def weighted_cross_entropy(beta):
   def convert_to_logits(y_pred):
       # see https://github.com/tensorflow/tensorflow/blob/r1.10/tensorflow/python/keras/backend.py#L3525
