@@ -20,9 +20,7 @@ def train(model):
   # Train the model
   train_gen = data_gen(train_frame_path, batch_size = BATCH_SIZE)
   val_gen = data_gen(val_frame_path, batch_size = BATCH_SIZE)
-
-
-  model.compile( optimizer=Adam(lr=2E-4), loss=weighted_cross_entropy(0.8), metrics=['accuracy'] )
+  
   model.fit_generator( train_gen, epochs=NO_OF_EPOCHS, 
                             steps_per_epoch = (NO_OF_TRAINING_IMAGES//BATCH_SIZE),
                             validation_data=val_gen, 
