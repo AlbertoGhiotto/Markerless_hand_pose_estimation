@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from random import random, shuffle
 
 STRIDE = 8
 EPSILON = 8     ## Questo valore poi andrebbe un po' aggiustato
