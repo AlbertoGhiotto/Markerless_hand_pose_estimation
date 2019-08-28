@@ -51,4 +51,6 @@ def whole_model(input_tensor=None):
     #model = Model(inputs=resnet_model.input, outputs= [scmap, locref]) # In case of using also location refinement
     model = Model(inputs=resnet_model.input, outputs=scmap)
     
+    model.compile( optimizer=Adam(lr=2E-4), loss=weighted_cross_entropy(0.8), metrics=['accuracy'] )
+    
     return model
