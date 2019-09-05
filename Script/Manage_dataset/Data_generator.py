@@ -3,12 +3,19 @@ import numpy as np
 from random import random, shuffle
 
 STRIDE = 8
-EPSILON = 8     ## Questo valore poi andrebbe un po' aggiustato
+EPSILON = 64    
 NUM_JOINTS = 16
 DEFAULT_WIDTH = 512
 DEFAULT_HEIGHT = 512
 ACTUAL_WIDTH = 640
 ACTUAL_HEIGHT = 480
+
+
+# Create a 3x3 2D Gaussian normal distribution
+xG, yG = np.meshgrid(np.linspace(-1,1,14), np.linspace(-1,1,14))
+d = np.sqrt(xG*xG+yG*yG)
+sigma, mu = 2, 0.0
+gauss = 1/(sigma * sqrt(2*pi)) * np.exp(-( (d-mu)**2 / ( 2.0 * sigma**2 ) ) )
 
 def read_csv_labels():
   file = '../../Dataset/dataset.csv'
@@ -31,14 +38,14 @@ def get_ID(image_name):
   return id_img
 
 
-def create_mask(x,y,epsilon):                   ############# Questo poi forse sarebbe meglio metterlo come circonferenza intorno al punto invece di un quadrato e magari mettere la gaussiana
+def create_mask(x,y,epsilon):                   
   mask = np.zeros((ACTUAL_HEIGHT//STRIDE, ACTUAL_WIDTH//STRIDE, NUM_JOINTS)).astype('float')    
   for joint in range(NUM_JOINTS):
     for i in range(-epsilon//STRIDE, epsilon//STRIDE):
       for j in range(-epsilon//STRIDE, epsilon//STRIDE):
         if (x[joint]//STRIDE + i)<(ACTUAL_HEIGHT//STRIDE) and (y[joint]//STRIDE + j)<(ACTUAL_WIDTH//STRIDE): 
           if x[joint] != -1 and y[joint] != -1:       # If a joint is not visible in the frame
-            mask[(x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = 1
+            mask[(x[joint]//STRIDE + i), (y[joint]//STRIDE + j), joint] = gauss[i+1, j+1]
   return mask
 
 def data_gen(img_folder, batch_size, shuffle=True):
@@ -62,7 +69,7 @@ def data_gen(img_folder, batch_size, shuffle=True):
       id_img = get_ID(n[i])
     
   
-      x = X_labels[id_img,:].astype('int')    #####Controllare che vada bene l'astype
+      x = X_labels[id_img,:].astype('int')    
       y = Y_labels[id_img,:].astype('int')
       train_mask = create_mask(x,y,EPSILON)
       train_mask = cv2.resize(train_mask, (DEFAULT_HEIGHT//STRIDE, DEFAULT_WIDTH//STRIDE))
